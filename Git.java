@@ -38,23 +38,25 @@ public class Git {
         //tests that the blob has correct hash and file contents- for compressed and non-compressed files
         String correctHash = "";
         if (blob.isCompressed()){
-            correctHash = "a925e79d2f295d2947179bdfd346901a48078726";
+            correctHash = "ddd8ff69c3b86f4f8a3efcb1387a5787f464a26f";
+            if (blob.getBlobName().equals(correctHash)){
+                System.out.println ("blob has correct hash/name.");
+            }
         }
         else{
             correctHash = "aaa8b870cdae19a38f9ad6f328dbaaf31ad38965";
-        }
-        if (blob.getBlobName().equals(correctHash)){
-            System.out.println ("blob has correct hash/name.");
-            String BlobContents = blob.readFileAsString(b);
-            String FileContents = blob.readFileAsString(newFile);
-            if (BlobContents.equals(FileContents)){
-                System.out.println ("blob has correct contents.");
+            if (blob.getBlobName().equals(correctHash)){
+                System.out.println ("blob has correct hash/name.");
+                String BlobContents = blob.readFileAsString(b);
+                String FileContents = blob.readFileAsString(newFile);
+                if (BlobContents.equals(FileContents)){
+                    System.out.println ("blob has correct contents.");
+                }
             }
         }
-
         //verifies that the index was updated correctly
         String indexContents = blob.readFileAsString(new File ("git/index"));
-        if (indexContents.equals(blobName+" newFile" + "\n" + blob2.getBlobName()+" newFile2" + "\n")){
+        if (indexContents.equals(blobName+" newFile.txt" + "\n" + blob2.getBlobName()+" newFile2.txt" + "\n")){
             System.out.println ("index was updated correctly");
         }
 

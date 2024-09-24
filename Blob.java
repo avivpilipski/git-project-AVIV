@@ -8,6 +8,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.zip.GZIPOutputStream;
 import java.io.IOException;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.FileWriter;
@@ -30,7 +31,8 @@ public class Blob {
         String fileContents = readFileAsString(ogFile);
         if (compressionAuthorization == true){
             try {
-                fileContents = compress(fileContents).toString();
+                String str = new String(compress(fileContents), StandardCharsets.UTF_8);
+                fileContents = str;
             } catch (IOException e) {
                 System.err.println("Compression failed, proceeding with uncompressed data.");
             }
